@@ -282,6 +282,76 @@ footer .cred{direction:rtl}
 .pin3:hover .head,.pin3.hl .head,.pin3:focus-visible .head{transform:scale(1.22) translateY(-3px)}
 .pin3.dim{opacity:.25}
 @media (prefers-reduced-motion:reduce){.pin3 .base{animation:none}}
+/* modern tree section */
+main{padding-block:56px 40px;background:radial-gradient(900px 400px at 90% 0%,#EEF2FF 0%,transparent 70%),radial-gradient(800px 500px at 0% 40%,#F3EEFF 0%,transparent 70%)}
+.thead2{display:flex;justify-content:space-between;align-items:end;gap:18px 28px;flex-wrap:wrap;margin-bottom:26px}
+.thead2 .eyebrow{font-size:12.5px;font-weight:700;color:#7A5AF8;letter-spacing:.04em}
+.thead2 h2{font-size:clamp(28px,3.4vw,40px);font-weight:900;color:var(--ink);line-height:1.25;margin-top:2px}
+.thead2 .tools{display:flex;gap:10px;flex-wrap:wrap}
+.thead2 .search input{border-radius:999px;border:1px solid rgba(20,40,80,.1);background:rgba(255,255,255,.85);box-shadow:0 6px 20px -12px rgba(20,40,80,.35);padding:10px 40px 10px 16px;width:min(320px,80vw)}
+.thead2 .btn{border-radius:999px;border:1px solid rgba(20,40,80,.1);background:#fff;box-shadow:0 6px 20px -12px rgba(20,40,80,.35);padding:9px 18px}
+.l1hero{position:relative;border-radius:26px;overflow:hidden;background:#14283A var(--img) center/cover no-repeat;box-shadow:0 30px 60px -30px rgba(20,40,80,.6);scroll-margin-top:16px}
+.l1hero::before{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(12,24,44,.94) 0%,rgba(12,24,44,.82) 45%,rgba(12,24,44,.35) 100%)}
+.l1in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px 40px;align-items:center;padding:clamp(24px,4vw,44px)}
+.l1txt{color:#fff;display:grid;gap:8px;max-width:72ch}
+.l1txt h3{font-size:clamp(26px,3vw,38px);font-weight:900;line-height:1.3}
+.l1txt .en{font-size:13.5px;color:#B9C7DA;direction:ltr;text-align:right}
+.l1txt p{margin:4px 0 6px;color:#D6DFEC;font-size:14.5px;line-height:1.9}
+.tchips{display:flex;gap:6px;flex-wrap:wrap}
+.tchip{font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:999px;background:rgba(20,40,80,.06);color:#4D5B70}
+.tchip.code{font-family:var(--f-mono);direction:ltr}
+.l1hero .tchip{background:rgba(255,255,255,.14);color:#E6EDF7;backdrop-filter:blur(6px)}
+.l1hero .tchip.dark{background:#E2B95A;color:#14283A}
+.gbtn{justify-self:start;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.16);backdrop-filter:blur(8px);color:#fff;border-radius:999px;padding:9px 18px;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s}
+.gbtn:hover{background:rgba(255,255,255,.28)}.gbtn .ico{font-size:17px}
+.l1stats{display:grid;gap:10px}
+.l1stats div{min-width:150px;padding:12px 18px;border-radius:16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);color:#fff;display:flex;align-items:baseline;gap:10px}
+.l1stats b{font-size:28px;font-weight:900;line-height:1}.l1stats span{font-size:12.5px;color:#C8D4E4}
+.branch{display:flex;align-items:center;gap:14px;margin:34px 0 22px;color:#6E7C92;font-size:13px;font-weight:700}
+.branch::before,.branch::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(20,40,80,.18),transparent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px;align-items:start}
+#tree .card2{position:relative;background:#fff;border:1px solid rgba(20,40,80,.07);border-radius:22px;overflow:hidden;box-shadow:0 18px 40px -28px rgba(20,40,80,.45);transition:transform .25s,box-shadow .25s;scroll-margin-top:16px}
+#tree .card2::before,#tree .card2::after{display:none}
+#tree .card2:hover{transform:translateY(-4px);box-shadow:0 26px 50px -26px color-mix(in srgb,var(--c) 55%,rgba(20,40,80,.4))}
+.media{position:relative;aspect-ratio:16/10;overflow:hidden;background:#E9EEF5}
+.media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+#tree .card2:hover .media img{transform:scale(1.05)}
+.media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,40,0) 45%,rgba(10,20,40,.55));pointer-events:none}
+.num{position:absolute;right:16px;bottom:10px;z-index:1;font-size:40px;font-weight:900;color:#fff;line-height:1;text-shadow:0 4px 18px rgba(0,0,0,.35)}
+.micon{position:absolute;right:14px;top:14px;z-index:1;width:42px;height:42px;border-radius:14px;background:var(--c);color:#fff;display:grid;place-items:center;box-shadow:0 8px 20px -6px color-mix(in srgb,var(--c) 80%,transparent)}
+.micon .ico{font-size:22px}
+.mcode{position:absolute;left:14px;top:14px;z-index:1;font-family:var(--f-mono);font-size:11px;direction:ltr;color:#fff;background:rgba(10,20,40,.45);backdrop-filter:blur(6px);padding:3px 10px;border-radius:999px}
+.cbody{padding:18px 20px 18px;display:grid;gap:8px}
+.cbody h3{font-size:19px;font-weight:900;line-height:1.45;color:var(--ink)}
+.cbody .en{font-size:12px;color:#8391A3;direction:ltr;text-align:right;margin-top:-4px}
+.cbody .sao{margin:0;font-size:13.5px;color:#5E6C79;line-height:1.85;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tchip.tint{background:color-mix(in srgb,var(--c) 14%,#fff);color:color-mix(in srgb,var(--c) 75%,#14283A)}
+.tchip.violet{background:#EEE9FF;color:#5B3FD6}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:#6E7C92;font-weight:600}
+.meta span{display:inline-flex;align-items:center;gap:6px}.meta .ico{font-size:15px;color:var(--c)}
+.acts{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.pbtn{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:800;cursor:pointer;color:#fff;background:var(--c);box-shadow:0 10px 22px -12px var(--c);transition:filter .2s}
+.pbtn:hover{filter:brightness(1.08)}.pbtn .ico{font-size:16px}
+#tree .tgl{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(20,40,80,.12);background:#fff;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+#tree .tgl:hover{border-color:var(--c);color:var(--c)}
+#tree .card2.open{grid-column:1/-1}
+#tree .card2.open .media{aspect-ratio:auto;height:200px}
+#tree .card2.open .tgl .ico{transform:rotate(180deg)}
+#tree .card2.open .cbody .sao{-webkit-line-clamp:unset}
+#tree .l3s{border-top:1px solid rgba(20,40,80,.07);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 6%,#fff),#fff);padding:18px 20px 22px}
+.l3grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-items:start}
+#tree .l3{display:grid;gap:8px;align-content:start;padding:14px 16px;border-radius:16px;background:#fff;border:1px solid rgba(20,40,80,.07);box-shadow:0 8px 20px -18px rgba(20,40,80,.5);grid-template-columns:none;border-bottom:1px solid rgba(20,40,80,.07)}
+#tree .l3.wide{grid-column:1/-1}
+.l3h{display:flex;gap:8px;align-items:center}
+.l3c{font-family:var(--f-mono);font-size:11px;direction:ltr;padding:2px 9px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,#fff);color:color-mix(in srgb,var(--c) 75%,#14283A);font-weight:600}
+.lv3{font-size:11px;color:#8391A3;font-weight:700}
+#tree .l3 p{margin:0;font-size:14.5px;font-weight:800;line-height:1.7;color:var(--ink)}
+#tree .l3 p::before{display:none}
+#tree .eqs{display:flex;flex-wrap:wrap;gap:6px;margin:0;grid-column:auto}
+#tree .eqs span{font-size:12px;line-height:1.6;padding:3px 10px;border-radius:999px;background:#F3F5FA;color:#4D5B70;border:1px solid rgba(20,40,80,.06)}
+#tree .eqs span+span::before{content:none}
+@media (max-width:760px){.l1in{grid-template-columns:1fr}.l1stats{grid-template-columns:repeat(3,1fr)}.l1stats div{min-width:0;flex-direction:column;gap:2px;padding:10px}.l1stats b{font-size:22px}.grid2{grid-template-columns:1fr}.l3grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){#tree .card2,.media img{transition:none}}
 </style>
 </head>
 <body>
@@ -337,13 +407,10 @@ footer .cred{direction:rtl}
 </header>
 
 <main class="gut"><div class="in">
-  <div class="thead">
-    <div>
-      <h2>درخت فناوری</h2>
-      <div class="key"><span class="k1"><i></i>سطح ۱</span><span class="k2"><i></i>سطح ۲</span><span class="k3"><i></i>سطح ۳</span></div>
-    </div>
+  <div class="thead2">
+    <div><div class="eyebrow">ساختار سه‌سطحی فناوری‌ها</div><h2>درخت فناوری</h2></div>
     <div class="tools">
-      <label class="search" for="q"><input id="q" type="search" placeholder="جست‌وجو در گره‌ها و تجهیزات" autocomplete="off"><svg class="ico"><use href="#i-search"/></svg></label>
+      <label class="search" for="q"><input id="q" type="search" placeholder="جست‌وجو در فناوری‌ها و تجهیزات" autocomplete="off"><svg class="ico"><use href="#i-search"/></svg></label>
       <button class="btn" id="expandAll" type="button">باز کردن همه</button>
     </div>
   </div>
@@ -422,25 +489,31 @@ function visual(code,cls='pic'){
 
 /* ---------- tree ---------- */
 const tree=document.getElementById('tree');
-const v0=visual(T.code);
-let h=`<article class="root" id="n-${T.code}"><div class="body"><div class="lvl"><span class="dot"></span>سطح ۱<span class="code">${T.code}</span><span>${esc(T.type)}</span></div>
-<h3>${esc(T.fa)} <span class="en">${esc(T.en)}</span></h3><p class="sao">${esc(T.sao)}</p>
-<button class="open-card" type="button" data-card="${T.code}">${ic('i-card')}شناسنامه فناوری</button></div>
-<figure class="tile">${v0.html}</figure></article><div class="l2list">`;
-T.children.forEach(c=>{
-  const m=M[c.code],v=visual(c.code);
-  h+=`<article class="sheet" id="n-${c.code}" data-code="${c.code}" style="--c:${m.c}"><div class="sheet-in"><div class="body">
-<div class="sh-top"><span class="badge">${ic(m.i)}</span><div style="min-width:0"><div class="lvl">سطح ۲<span class="code">${c.code}</span>${c.type==='دیجیتال'?'<span class="digi">دیجیتال</span>':''}</div>
-<h3><span class="hl">${esc(c.fa)}</span><span class="en">${esc(c.en)}</span></h3></div></div>
+const ph=code=>PH[M[code].ph];
+const p0=ph(T.code);
+const two=n=>fa(String(n).padStart(2,'0'));
+let h=`<article class="l1hero" id="n-${T.code}" style="--img:url('${p0.src}')">
+<div class="l1in"><div class="l1txt">
+<div class="tchips"><span class="tchip dark">سطح ۱</span><span class="tchip code">${T.code}</span><span class="tchip">${esc(T.type)}</span></div>
+<h3>${esc(T.fa)}</h3><div class="en">${esc(T.en)}</div><p>${esc(T.sao)}</p>
+<button class="gbtn" type="button" data-card="${T.code}">${ic('i-card')}شناسنامه فناوری</button></div>
+<div class="l1stats"><div><b>${fa(T.children.length)}</b><span>فناوری سطح ۲</span></div><div><b>${fa(nL3)}</b><span>فناوری سطح ۳</span></div><div><b>${fa(nEq)}</b><span>تجهیز</span></div></div></div></article>
+<div class="branch"><span>${fa(T.children.length)} فناوری سطح ۲</span></div><div class="grid2">`;
+T.children.forEach((c,i)=>{
+  const m=M[c.code],p=ph(c.code),n3=c.children.length;
+  h+=`<article class="sheet card2" id="n-${c.code}" data-code="${c.code}" style="--c:${m.c}">
+<div class="media"><img src="${p.src}" alt="${esc(p.what)}" title="${esc(p.what)} · ${esc(p.by)}, ${p.lic}" loading="lazy">
+<span class="num">${two(i+1)}</span><span class="micon">${ic(m.i)}</span><span class="mcode">${c.code}</span></div>
+<div class="cbody"><div class="tchips"><span class="tchip tint">سطح ۲</span>${c.type==='دیجیتال'?'<span class="tchip violet">دیجیتال</span>':'<span class="tchip">فیزیکی/فرایندی</span>'}</div>
+<h3 class="hl">${esc(c.fa)}</h3><div class="en">${esc(c.en)}</div>
 <p class="sao hl">${esc(c.sao)}</p>
-<div class="sh-foot"><button class="sbtn" type="button" data-card="${c.code}">${ic('i-card')}شناسنامه</button>
-<button class="tgl" type="button" aria-expanded="false" aria-controls="s-${c.code}">${ic('i-chev')}<span>${c.children.length?fa(c.children.length)+' فناوری سطح ۳':'تجهیزات'}</span></button>
-<span class="cnt">${fa(eqOf(c))} تجهیز</span></div></div>
-<figure class="tile">${v.html}</figure></div>
-<div class="l3s" id="s-${c.code}" hidden>`;
-  if(c.children.length){c.children.forEach(z=>{h+=`<div class="l3"><span class="code">${z.code}</span><p class="hl">${esc(z.name)}</p>${z.eq.length?`<div class="eqs">${z.eq.map(e=>`<span class="hl">${esc(e)}</span>`).join('')}</div>`:''}</div>`;});}
-  else{h+=`<p class="noL3">تجهیزات مستقیم زیر این فناوری:</p><div class="eqs" style="margin:0">${c.eq.map(e=>`<span class="hl">${esc(e)}</span>`).join('')}</div>`;}
-  h+=`</div></article>`;
+<div class="meta">${n3?`<span>${ic('i-tree')}${fa(n3)} فناوری سطح ۳</span>`:''}<span>${ic('i-11')}${fa(eqOf(c))} تجهیز</span></div>
+<div class="acts"><button class="pbtn" type="button" data-card="${c.code}">${ic('i-card')}شناسنامه فناوری</button>
+<button class="tgl" type="button" aria-expanded="false" aria-controls="s-${c.code}"><span>${n3?'زیرشاخه‌ها':'تجهیزات'}</span>${ic('i-chev')}</button></div></div>
+<div class="l3s" id="s-${c.code}" hidden><div class="l3grid">`;
+  if(n3){c.children.forEach(z=>{h+=`<div class="l3"><div class="l3h"><span class="l3c">${z.code}</span><span class="lv3">سطح ۳</span></div><p class="hl">${esc(z.name)}</p>${z.eq.length?`<div class="eqs">${z.eq.map(e=>`<span class="hl">${esc(e)}</span>`).join('')}</div>`:''}</div>`;});}
+  else{h+=`<div class="l3 wide"><div class="l3h"><span class="lv3">تجهیزات مستقیم زیر این فناوری</span></div><div class="eqs">${c.eq.map(e=>`<span class="hl">${esc(e)}</span>`).join('')}</div></div>`;}
+  h+=`</div></div></article>`;
 });
 tree.innerHTML=h+`</div>`;
 document.querySelectorAll('.hl').forEach(el=>el.dataset.raw=el.textContent);
