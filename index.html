@@ -264,12 +264,9 @@ footer .cred{direction:rtl}
 .edit pre{direction:ltr;white-space:pre-wrap;word-break:break-all;font-size:11.5px;background:#F4F6FA;padding:8px;border-radius:8px;margin:8px 0 0}
 @media (max-width:900px){.sat-hero{grid-template-columns:1fr}.legend{order:2;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}.lg.root{grid-column:1/-1}}
 .sat3d{height:min(600px,62vw);min-height:380px;background:#1d2433}
-#map3d{position:absolute;inset:0}
+#map3d{position:absolute;inset:0;direction:ltr}
 .sat3d .flat{display:none;width:100%;height:100%;object-fit:cover}
 .sat3d.no3d #map3d{display:none}.sat3d.no3d .flat{display:block}
-.mk3{width:30px;height:30px;border-radius:50%;border:3px solid #fff;background:var(--c);color:#fff;font:800 13px/1 var(--f-fa);display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 60%,transparent),0 4px 12px rgba(0,0,0,.45);animation:pp 2.4s ease-out infinite}
-.mk3.hl,.mk3:hover{transform:scale(1.18);box-shadow:0 0 0 4px rgba(255,255,255,.6),0 4px 14px rgba(0,0,0,.5)}
-.mk3.dim{opacity:.3}
 .hint3d{position:absolute;right:12px;top:12px;z-index:3;font-size:11.5px;color:#fff;background:rgba(10,20,40,.55);backdrop-filter:blur(6px);padding:3px 11px;border-radius:999px;pointer-events:none}
 .reset3d{position:absolute;right:12px;bottom:10px;z-index:3;border:0;border-radius:999px;padding:4px 12px;font:600 12px var(--f-fa);background:rgba(255,255,255,.9);color:var(--ink);cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.25)}
 .reset3d:hover{background:#fff}
@@ -277,6 +274,14 @@ footer .cred{direction:rtl}
 .no3d .hint3d,.no3d .reset3d{display:none}
 .maplibregl-ctrl-group{border-radius:12px!important;overflow:hidden}
 @media (max-width:900px){.sat3d{height:420px}.hint3d{font-size:10.5px;left:12px;right:auto;max-width:calc(100% - 24px)}}
+.pin3{display:flex;flex-direction:column;align-items:center;border:0;background:none;padding:0;cursor:pointer}
+.pin3 .head{width:30px;height:30px;border-radius:50%;background:var(--c);border:3px solid #fff;color:#fff;font:800 13px/1 var(--f-fa);display:grid;place-items:center;box-shadow:0 6px 16px rgba(0,0,0,.45);transition:transform .18s}
+.pin3 .stem{width:2px;height:var(--h);background:linear-gradient(#fff,color-mix(in srgb,var(--c) 60%,transparent));box-shadow:0 0 6px rgba(255,255,255,.6)}
+.pin3 .base{width:14px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 10px 3px var(--c);margin-top:-3px;animation:bp 2.4s ease-out infinite}
+@keyframes bp{0%{box-shadow:0 0 0 0 var(--c)}100%{box-shadow:0 0 0 14px transparent}}
+.pin3:hover .head,.pin3.hl .head,.pin3:focus-visible .head{transform:scale(1.22) translateY(-3px)}
+.pin3.dim{opacity:.25}
+@media (prefers-reduced-motion:reduce){.pin3 .base{animation:none}}
 </style>
 </head>
 <body>
@@ -526,8 +531,9 @@ const poly=r=>{let p;if(r[0]==='r')p=[[r[1],r[2]],[r[1]+r[3],r[2]],[r[1]+r[3],r[
 const FC={type:'FeatureCollection',features:T.children.map((c,i)=>({type:'Feature',id:i+1,properties:{code:c.code,color:M[c.code].c,base:HGT[c.code][0],h:HGT[c.code][1]},geometry:{type:'Polygon',coordinates:poly(PIN[c.code][2])}}))};
 const fid={};FC.features.forEach(f=>fid[f.properties.code]=f.id);
 let MAP=null;
+const PIN_H={'A1-1-2':78,'A1-1-4':54,'A1-1-5':62,'A1-1-6':40,'A1-1-3':56,'A1-1-11':40,'A1-1-12':58,'A1-1-8':46,'A1-1-10':36,'A1-1-1':48,'A1-1-9':44,'A1-1-7':44};
 function hl3d(code,on){if(MAP&&fid[code]&&MAP.getSource('units'))MAP.setFeatureState({source:'units',id:fid[code]},{hl:on});}
-function mk(code){const b=document.createElement('button');b.type='button';b.className='mk3';b.dataset.code=code;b.style.setProperty('--c',M[code].c);b.innerHTML=`<span>${num(code)}</span>`;b.setAttribute('aria-label','شناسنامه فناوری: '+byCode[code].fa);return b;}
+function mk(code){const b=document.createElement('button');b.type='button';b.className='pin3';b.dataset.code=code;b.style.setProperty('--c',M[code].c);b.style.setProperty('--h',(PIN_H[code]||44)+'px');b.innerHTML=`<span class="head">${num(code)}</span><span class="stem"></span><span class="base"></span>`;b.setAttribute('aria-label','شناسنامه فناوری: '+byCode[code].fa);return b;}
 const HOME={center:ll(1260,760),zoom:17.05,pitch:56,bearing:-24};
 function init3d(){
   let gl=null;try{const t=document.createElement('canvas');gl=t.getContext('webgl2')||t.getContext('webgl');}catch(e){}
@@ -540,28 +546,35 @@ function start(cv){
   MAP=new maplibregl.Map({container:'map3d',attributionControl:false,maxBounds:[sw,ne],minZoom:15.2,maxZoom:19.5,maxPitch:75,...HOME,
     style:{version:8,sources:{},layers:[{id:'bg',type:'background',paint:{'background-color':'#DCE3EA'}}]}});
   MAP.addControl(new maplibregl.NavigationControl({visualizePitch:true}),'top-left');
-  MAP.on('load',()=>{
+  MAP.on('error',e=>console.error('map',e&&e.error&&e.error.message));
+  MAP.on('load',()=>{try{
     MAP.addSource('sat',{type:'canvas',canvas:cv,animate:false,coordinates:[ll(0,0),ll(IW,0),ll(IW,IH),ll(0,IH)]});
     MAP.addLayer({id:'sat',type:'raster',source:'sat',paint:{'raster-fade-duration':0}});
     MAP.addSource('units',{type:'geojson',data:FC});
-    MAP.addLayer({id:'foot',type:'line',source:'units',paint:{'line-color':['get','color'],'line-width':['case',['boolean',['feature-state','hl'],false],3.5,1.6],'line-opacity':.95}});
-    MAP.addLayer({id:'flat',type:'fill',source:'units',filter:['==',['get','h'],0],paint:{'fill-color':['get','color'],'fill-opacity':['case',['boolean',['feature-state','hl'],false],.45,.2]}});
-    MAP.addLayer({id:'units',type:'fill-extrusion',source:'units',filter:['>',['get','h'],0],paint:{
-      'fill-extrusion-color':['case',['boolean',['feature-state','hl'],false],'#FFFFFF',['get','color']],
-      'fill-extrusion-base':['get','base'],'fill-extrusion-height':['get','h'],'fill-extrusion-opacity':.58,'fill-extrusion-vertical-gradient':true}});
-    T.children.forEach(c=>{const [x,y]=PIN[c.code];new maplibregl.Marker({element:mk(c.code),anchor:'center'}).setLngLat(ll(x,y)).addTo(MAP);});
+    const HL=['boolean',['feature-state','hl'],false];
+    MAP.addLayer({id:'fill',type:'fill',source:'units',paint:{'fill-color':['get','color'],'fill-opacity':['case',HL,.42,.16]}});
+    MAP.addLayer({id:'glow',type:'line',source:'units',paint:{'line-color':['get','color'],'line-width':['case',HL,16,10],'line-blur':8,'line-opacity':['case',HL,.95,.55]}});
+    MAP.addLayer({id:'edge',type:'line',source:'units',paint:{'line-color':['case',HL,'#FFFFFF',['get','color']],'line-width':['case',HL,3,1.6]}});
+    const FL=[['sol',[[393,819],[717,828],[1092,768]]],['sol',[[981,589],[2005,580]]],['gas',[[1121,768],[1200,830],[1300,812],[1410,772],[1505,748],[1300,733],[1140,748]]],['water',[[830,992],[980,900],[1100,822]]]];
+    const FCOL={sol:'#FFB547',gas:'#3FD0FF',water:'#7FB2FF'};
+    MAP.addSource('flows',{type:'geojson',data:{type:'FeatureCollection',features:FL.map(([k,p])=>({type:'Feature',properties:{c:FCOL[k]},geometry:{type:'LineString',coordinates:p.map(([x,y])=>ll(x,y))}}))}});
+    MAP.addLayer({id:'flowGlow',type:'line',source:'flows',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':['get','c'],'line-width':9,'line-blur':6,'line-opacity':.45}});
+    MAP.addLayer({id:'flowDash',type:'line',source:'flows',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#FFFFFF','line-width':2.4,'line-dasharray':[0,4,3]}});
+    const DS=[[0,4,3],[0.5,4,2.5],[1,4,2],[1.5,4,1.5],[2,4,1],[2.5,4,0.5],[3,4,0],[0,0.5,3,3.5],[0,1,3,3],[0,1.5,3,2.5],[0,2,3,2],[0,2.5,3,1.5],[0,3,3,1],[0,3.5,3,0.5]];
+    if(!matchMedia('(prefers-reduced-motion:reduce)').matches){let st=-1;setInterval(()=>{st=(st+1)%DS.length;if(MAP.getLayer('flowDash'))MAP.setPaintProperty('flowDash','line-dasharray',DS[st]);},90);}
+    T.children.forEach(c=>{const [x,y]=PIN[c.code];new maplibregl.Marker({element:mk(c.code),anchor:'bottom'}).setLngLat(ll(x,y)).addTo(MAP);});
     let cur=null;
-    ['units','flat'].forEach(L=>MAP.on('mousemove',L,e=>{const k=e.features[0]&&e.features[0].properties.code;if(k===cur)return;if(cur)setHL(cur,false);cur=k;MAP.getCanvas().style.cursor='pointer';if(k){setHL(k,true);showTip(k,PN.querySelector(`.mk3[data-code="${k}"]`));}}));
-    ['units','flat'].forEach(L=>MAP.on('mouseleave',L,()=>{if(cur)setHL(cur,false);cur=null;MAP.getCanvas().style.cursor='';tip.hidden=true;}));
-    ['units','flat'].forEach(L=>MAP.on('click',L,e=>{const k=e.features[0]&&e.features[0].properties.code;if(k)openCard(k);}));
+    ['fill'].forEach(L=>MAP.on('mousemove',L,e=>{const k=e.features[0]&&e.features[0].properties.code;if(k===cur)return;if(cur)setHL(cur,false);cur=k;MAP.getCanvas().style.cursor='pointer';if(k){setHL(k,true);showTip(k,PN.querySelector(`.pin3[data-code="${k}"]`));}}));
+    ['fill'].forEach(L=>MAP.on('mouseleave',L,()=>{if(cur)setHL(cur,false);cur=null;MAP.getCanvas().style.cursor='';tip.hidden=true;}));
+    ['fill'].forEach(L=>MAP.on('click',L,e=>{const k=e.features[0]&&e.features[0].properties.code;if(k)openCard(k);}));
     MAP.on('movestart',()=>{tip.hidden=true;});
     if(!matchMedia('(prefers-reduced-motion:reduce)').matches)MAP.easeTo({bearing:-8,duration:2600});
-  });
+  }catch(err){console.error('init3d',err.message);}});
 }
 document.getElementById('resetView').onclick=()=>{if(MAP)MAP.easeTo({...HOME,duration:1200});};
-PN.addEventListener('pointerover',e=>{const g=e.target.closest('[data-code]');if(!g||g.dataset.code===T.code)return;hl3d(g.dataset.code,true);const m=PN.querySelector(`.mk3[data-code="${g.dataset.code}"]`);showTip(g.dataset.code,m);});
+PN.addEventListener('pointerover',e=>{const g=e.target.closest('[data-code]');if(!g||g.dataset.code===T.code)return;hl3d(g.dataset.code,true);const m=PN.querySelector(`.pin3[data-code="${g.dataset.code}"]`);showTip(g.dataset.code,m);});
 PN.addEventListener('pointerout',e=>{const g=e.target.closest('[data-code]');if(!g)return;hl3d(g.dataset.code,false);tip.hidden=true;});
-PN.addEventListener('focusin',e=>{const g=e.target.closest('[data-code]');if(g&&g.dataset.code!==T.code)showTip(g.dataset.code,PN.querySelector(`.mk3[data-code="${g.dataset.code}"]`));});
+PN.addEventListener('focusin',e=>{const g=e.target.closest('[data-code]');if(g&&g.dataset.code!==T.code)showTip(g.dataset.code,PN.querySelector(`.pin3[data-code="${g.dataset.code}"]`));});
 PN.addEventListener('focusout',()=>{tip.hidden=true;});
 init3d();
 
